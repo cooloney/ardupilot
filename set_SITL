@@ -1,0 +1,7 @@
+//copter
+sim_vehicle.sh -v ArduCopter --console --map --aircraft test
+param load ../Tools/autotest/copter_params.parm
+wp load ../Tools/autotest/copter_mission.txt
+arm throttle
+auto
+rc 3 1500
