@@ -70,105 +70,105 @@ endif
 
 .PHONY: module_mk
 module_mk:
-    $(RULEHDR)
-    $(v) echo "# Auto-generated file - do not edit" > $(SKETCHBOOK)/module.mk.new
-    $(v) echo "MODULE_COMMAND = ArduPilot" >> $(SKETCHBOOK)/module.mk.new
-    $(v) echo "SRCS = Build.$(SKETCH)/$(SKETCH).cpp $(SKETCHLIBSRCSRELATIVE)" >> $(SKETCHBOOK)/module.mk.new
-    $(v) echo "MODULE_STACKSIZE = 4096" >> $(SKETCHBOOK)/module.mk.new
-    $(v) cmp $(SKETCHBOOK)/module.mk $(SKETCHBOOK)/module.mk.new 2>/dev/null || mv $(SKETCHBOOK)/module.mk.new $(SKETCHBOOK)/module.mk
-    $(v) rm -f $(SKETCHBOOK)/module.mk.new
+	$(RULEHDR)
+	$(v) echo "# Auto-generated file - do not edit" > $(SKETCHBOOK)/module.mk.new
+	$(v) echo "MODULE_COMMAND = ArduPilot" >> $(SKETCHBOOK)/module.mk.new
+	$(v) echo "SRCS = Build.$(SKETCH)/$(SKETCH).cpp $(SKETCHLIBSRCSRELATIVE)" >> $(SKETCHBOOK)/module.mk.new
+	$(v) echo "MODULE_STACKSIZE = 4096" >> $(SKETCHBOOK)/module.mk.new
+	$(v) cmp $(SKETCHBOOK)/module.mk $(SKETCHBOOK)/module.mk.new 2>/dev/null || mv $(SKETCHBOOK)/module.mk.new $(SKETCHBOOK)/module.mk
+	$(v) rm -f $(SKETCHBOOK)/module.mk.new
 
 px4-v1: $(BUILDROOT)/make.flags $(PX4_ROOT)/Archives/px4fmu-v1.export $(SKETCHCPP) module_mk px4-io-v1
-    $(RULEHDR)
-    $(v) rm -f $(PX4_ROOT)/makefiles/$(PX4_V1_CONFIG_FILE)
-    $(v) cp $(PWD)/$(PX4_V1_CONFIG_FILE) $(PX4_ROOT)/makefiles/
-    $(v) $(PX4_MAKE) px4fmu-v1_APM
-    $(v) /bin/rm -f $(SKETCH)-v1.px4
-    $(v) cp $(PX4_ROOT)/Images/px4fmu-v1_APM.px4 $(SKETCH)-v1.px4
-    $(v) $(SKETCHBOOK)/Tools/scripts/add_git_hashes.py $(HASHADDER_FLAGS) "$(SKETCH)-v1.px4" "$(SKETCH)-v1.px4"
-    $(v) echo "PX4 $(SKETCH) Firmware is in $(SKETCH)-v1.px4"
+	$(RULEHDR)
+	$(v) rm -f $(PX4_ROOT)/makefiles/$(PX4_V1_CONFIG_FILE)
+	$(v) cp $(PWD)/$(PX4_V1_CONFIG_FILE) $(PX4_ROOT)/makefiles/
+	$(v) $(PX4_MAKE) px4fmu-v1_APM
+	$(v) /bin/rm -f $(SKETCH)-v1.px4
+	$(v) cp $(PX4_ROOT)/Images/px4fmu-v1_APM.px4 $(SKETCH)-v1.px4
+	$(v) $(SKETCHBOOK)/Tools/scripts/add_git_hashes.py $(HASHADDER_FLAGS) "$(SKETCH)-v1.px4" "$(SKETCH)-v1.px4"
+	$(v) echo "PX4 $(SKETCH) Firmware is in $(SKETCH)-v1.px4"
 
 px4-v2: $(BUILDROOT)/make.flags $(PX4_ROOT)/Archives/px4fmu-v2.export $(SKETCHCPP) module_mk px4-io-v2
-    $(RULEHDR)
-    $(v) rm -f $(PX4_ROOT)/makefiles/$(PX4_V2_CONFIG_FILE)
-    $(v) cp $(PWD)/$(PX4_V2_CONFIG_FILE) $(PX4_ROOT)/makefiles/
-    $(PX4_MAKE) px4fmu-v2_APM
-    $(v) /bin/rm -f $(SKETCH)-v2.px4
-    $(v) cp $(PX4_ROOT)/Images/px4fmu-v2_APM.px4 $(SKETCH)-v2.px4
-    $(v) $(SKETCHBOOK)/Tools/scripts/add_git_hashes.py $(HASHADDER_FLAGS) "$(SKETCH)-v2.px4" "$(SKETCH)-v2.px4"
-    $(v) echo "PX4 $(SKETCH) Firmware is in $(SKETCH)-v2.px4"
+	$(RULEHDR)
+	$(v) rm -f $(PX4_ROOT)/makefiles/$(PX4_V2_CONFIG_FILE)
+	$(v) cp $(PWD)/$(PX4_V2_CONFIG_FILE) $(PX4_ROOT)/makefiles/
+	$(PX4_MAKE) px4fmu-v2_APM
+	$(v) /bin/rm -f $(SKETCH)-v2.px4
+	$(v) cp $(PX4_ROOT)/Images/px4fmu-v2_APM.px4 $(SKETCH)-v2.px4
+	$(v) $(SKETCHBOOK)/Tools/scripts/add_git_hashes.py $(HASHADDER_FLAGS) "$(SKETCH)-v2.px4" "$(SKETCH)-v2.px4"
+	$(v) echo "PX4 $(SKETCH) Firmware is in $(SKETCH)-v2.px4"
 
 px4: px4-v1 px4-v2
 
 px4-clean: clean px4-archives-clean
-    $(v) /bin/rm -rf $(PX4_ROOT)/makefiles/build $(PX4_ROOT)/Build
+	$(v) /bin/rm -rf $(PX4_ROOT)/makefiles/build $(PX4_ROOT)/Build
 
 px4-cleandep: clean
-    $(v) find $(PX4_ROOT)/Build -type f -name '*.d' | xargs rm -f
+	$(v) find $(PX4_ROOT)/Build -type f -name '*.d' | xargs rm -f
 
 px4-v1-upload: px4-v1
-    $(RULEHDR)
-    $(v) $(PX4_MAKE) px4fmu-v1_APM upload
+	$(RULEHDR)
+	$(v) $(PX4_MAKE) px4fmu-v1_APM upload
 
 px4-v2-upload: px4-v2
-    $(RULEHDR)
-    $(v) $(PX4_MAKE) px4fmu-v2_APM upload
+	$(RULEHDR)
+	$(v) $(PX4_MAKE) px4fmu-v2_APM upload
 
 px4-upload: px4-v1-upload
 
 px4-archives-clean:
-    $(v) /bin/rm -rf $(PX4_ROOT)/Archives
+	$(v) /bin/rm -rf $(PX4_ROOT)/Archives
 
 px4-io-v1: $(PX4_ROOT)/Archives/px4io-v1.export
-    $(v) make -C $(PX4_ROOT) px4io-v1_default
-    $(v) /bin/rm -f px4io-v1.bin
-    $(v) cp $(PX4_ROOT)/Images/px4io-v1_default.bin px4io-v1.bin
-    $(v) cp $(PX4_ROOT)/Build/px4io-v1_default.build/firmware.elf px4io-v1.elf
-    $(v) mkdir -p $(MK_DIR)/PX4/ROMFS/px4io/
-    $(v) rm -f $(MK_DIR)/PX4/ROMFS/px4io/px4io.bin
-    $(v) cp px4io-v1.bin $(MK_DIR)/PX4/ROMFS/px4io/px4io.bin
-    $(v) mkdir -p $(MK_DIR)/PX4/ROMFS/bootloader/
-    $(v) rm -f $(MK_DIR)/PX4/ROMFS/bootloader/fmu_bl.bin
-    $(v) cp $(SKETCHBOOK)/mk/PX4/bootloader/px4fmu_bl.bin $(MK_DIR)/PX4/ROMFS/bootloader/fmu_bl.bin
-    $(v) echo "PX4IOv1 Firmware is in px4io-v1.bin"
+	$(v) make -C $(PX4_ROOT) px4io-v1_default
+	$(v) /bin/rm -f px4io-v1.bin
+	$(v) cp $(PX4_ROOT)/Images/px4io-v1_default.bin px4io-v1.bin
+	$(v) cp $(PX4_ROOT)/Build/px4io-v1_default.build/firmware.elf px4io-v1.elf
+	$(v) mkdir -p $(MK_DIR)/PX4/ROMFS/px4io/
+	$(v) rm -f $(MK_DIR)/PX4/ROMFS/px4io/px4io.bin
+	$(v) cp px4io-v1.bin $(MK_DIR)/PX4/ROMFS/px4io/px4io.bin
+	$(v) mkdir -p $(MK_DIR)/PX4/ROMFS/bootloader/
+	$(v) rm -f $(MK_DIR)/PX4/ROMFS/bootloader/fmu_bl.bin
+	$(v) cp $(SKETCHBOOK)/mk/PX4/bootloader/px4fmu_bl.bin $(MK_DIR)/PX4/ROMFS/bootloader/fmu_bl.bin
+	$(v) echo "PX4IOv1 Firmware is in px4io-v1.bin"
 
 
 px4-io-v2: $(PX4_ROOT)/Archives/px4io-v2.export
-    $(v) make -C $(PX4_ROOT) px4io-v2_default
-    $(v) /bin/rm -f px4io-v2.bin
-    $(v) cp $(PX4_ROOT)/Build/px4io-v2_default.build/firmware.bin px4io-v2.bin
-    $(v) cp $(PX4_ROOT)/Images/px4io-v2_default.bin px4io-v2.bin
-    $(v) cp $(PX4_ROOT)/Build/px4io-v2_default.build/firmware.elf px4io-v2.elf
-    $(v) mkdir -p $(MK_DIR)/PX4/ROMFS/px4io/
-    $(v) rm -f $(MK_DIR)/PX4/ROMFS/px4io/px4io.bin
-    $(v) cp px4io-v2.bin $(MK_DIR)/PX4/ROMFS/px4io/px4io.bin
-    $(v) mkdir -p $(MK_DIR)/PX4/ROMFS/bootloader/
-    $(v) rm -f $(MK_DIR)/PX4/ROMFS/bootloader/fmu_bl.bin
-    $(v) cp $(SKETCHBOOK)/mk/PX4/bootloader/px4fmuv2_bl.bin $(MK_DIR)/PX4/ROMFS/bootloader/fmu_bl.bin
-    $(v) echo "PX4IOv2 Firmware is in px4io-v2.bin"
+	$(v) make -C $(PX4_ROOT) px4io-v2_default
+	$(v) /bin/rm -f px4io-v2.bin
+	$(v) cp $(PX4_ROOT)/Build/px4io-v2_default.build/firmware.bin px4io-v2.bin
+	$(v) cp $(PX4_ROOT)/Images/px4io-v2_default.bin px4io-v2.bin
+	$(v) cp $(PX4_ROOT)/Build/px4io-v2_default.build/firmware.elf px4io-v2.elf
+	$(v) mkdir -p $(MK_DIR)/PX4/ROMFS/px4io/
+	$(v) rm -f $(MK_DIR)/PX4/ROMFS/px4io/px4io.bin
+	$(v) cp px4io-v2.bin $(MK_DIR)/PX4/ROMFS/px4io/px4io.bin
+	$(v) mkdir -p $(MK_DIR)/PX4/ROMFS/bootloader/
+	$(v) rm -f $(MK_DIR)/PX4/ROMFS/bootloader/fmu_bl.bin
+	$(v) cp $(SKETCHBOOK)/mk/PX4/bootloader/px4fmuv2_bl.bin $(MK_DIR)/PX4/ROMFS/bootloader/fmu_bl.bin
+	$(v) echo "PX4IOv2 Firmware is in px4io-v2.bin"
 
 px4-io: px4-io-v1 px4-io-v2
 
 
 $(PX4_ROOT)/Archives/px4fmu-v1.export:
-    $(v) $(PX4_MAKE_ARCHIVES)
+	$(v) $(PX4_MAKE_ARCHIVES)
 
 $(PX4_ROOT)/Archives/px4fmu-v2.export:
-    $(v) $(PX4_MAKE_ARCHIVES)
+	$(v) $(PX4_MAKE_ARCHIVES)
 
 $(PX4_ROOT)/Archives/px4io-v1.export:
-    $(v) $(PX4_MAKE_ARCHIVES)
+	$(v) $(PX4_MAKE_ARCHIVES)
 
 $(PX4_ROOT)/Archives/px4io-v2.export:
-    $(v) $(PX4_MAKE_ARCHIVES)
+	$(v) $(PX4_MAKE_ARCHIVES)
 
 px4-archives:
-    $(v) $(PX4_MAKE_ARCHIVES)
+	$(v) $(PX4_MAKE_ARCHIVES)
 
 else
 
 px4:
-    $(error ERROR: You need to add PX4_ROOT to your config.mk)
+	$(error ERROR: You need to add PX4_ROOT to your config.mk)
 
 px4-clean: px4
 
