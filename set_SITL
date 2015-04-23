@@ -2,6 +2,9 @@
 sim_vehicle.sh -v ArduCopter --console --map --aircraft test
 param load ../Tools/autotest/copter_params.parm
 wp load ../Tools/autotest/copter_mission.txt
+wp load ../Tools/autotest/gwang_copter_missions/copter_mission_bald.txt
 arm throttle
 auto
 rc 3 1500
+
+output add 172.16.110.204:14550
