@@ -1,6 +1,8 @@
 # find the mk/ directory, which is where this makefile fragment
 # lives. (patsubst strips the trailing slash.)
 SYSTYPE			:=	$(shell uname)
+EXTRAFLAGS += -DGW_DEBUG
+EXTRAFLAGS += -DGW_DIY
 
 ifneq ($(findstring CYGWIN, $(SYSTYPE)),) 
   MK_DIR := $(shell cygpath -m ../mk)

@@ -730,6 +730,9 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
     { auto_trim,            40,     14 },
     { update_altitude,      40,    100 },
     { run_nav_updates,       8,     80 },
+#if defined GW_DIY
+	{ gwang_first_print,      10,     200 },
+#endif
     { update_thr_average,   40,     10 },
     { three_hz_loop,       133,      9 },
     { compass_accumulate,    8,     42 },
@@ -982,6 +985,9 @@ static void ten_hz_logging_loop()
     if (should_log(MASK_LOG_NTUN) && (mode_requires_GPS(control_mode) || landing_with_GPS())) {
         Log_Write_Nav_Tuning();
     }
+#if defined GW_DIY
+	gwang_first_print();
+#endif
 }
 
 // fifty_hz_logging_loop
@@ -1089,6 +1095,13 @@ static void one_hz_loop()
     }
 #endif
 }
+
+#if defined GW_DIY
+static void gwang_first_print(void)
+{
+	gcs_send_text_P(SEVERITY_HIGH,PSTR("George's first debug output"));
+}
+#endif
 
 // called at 50hz
 static void update_GPS(void)
