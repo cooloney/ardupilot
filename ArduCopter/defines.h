@@ -107,9 +107,12 @@ enum aux_sw_func {
 #define FLIP        14                  // flip the vehicle on the roll axis
 #define AUTOTUNE    15                  // autotune the vehicle's roll and pitch gains
 #define POSHOLD     16                  // position hold with manual override
+#if defined GW_DIY
 #define GWANG		17
 #define NUM_MODES   18
-
+#else
+#define NUM_MODES   17
+#endif
 
 // CH_6 Tuning
 // -----------

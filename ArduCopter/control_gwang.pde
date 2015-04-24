@@ -22,6 +22,7 @@
  */
 
 // auto_init - initialise auto controller
+#if defined GW_DIY
 static bool gwang_init(bool ignore_checks)
 {
 	hal.console->printf("georgewhr, in %s\n",__func__);
@@ -40,4 +41,4 @@ static void gwang_run()
         return;
     }
 }
-
+#endif
