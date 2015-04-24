@@ -37,6 +37,7 @@ static bool auto_init(bool ignore_checks)
 
         // start/resume the mission (based on MIS_RESTART parameter)
         mission.start_or_resume();
+		hal.console->printf("%s:georgewhr, auto mode init success\n",__func__);
         return true;
     }else{
         return false;
@@ -53,14 +54,23 @@ static void auto_run()
 
     case Auto_TakeOff:
         auto_takeoff_run();
+#if defined GW_DEBUG
+		hal.console->printf("%s: in auto_takeoff mode\n",__func__);
+#endif
         break;
 
     case Auto_WP:
     case Auto_CircleMoveToEdge:
+#if defined GW_DEBUG
+        hal.console->printf("%s: in auto_wp mode\n",__func__);
+#endif
         auto_wp_run();
         break;
 
     case Auto_Land:
+#if defined GW_DEBUG
+        hal.console->printf("%s: in auto_land mode\n",__func__);
+#endif
         auto_land_run();
         break;
 
@@ -83,6 +93,9 @@ static void auto_run()
         break;
 
     case Auto_Loiter:
+#if defined GW_DEBUG
+        hal.console->printf("%s: in auto_loiter mode\n",__func__);
+#endif
         auto_loiter_run();
         break;
     }
