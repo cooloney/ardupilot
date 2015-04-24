@@ -1100,6 +1100,7 @@ static void one_hz_loop()
 static void gwang_first_print(void)
 {
 	gcs_send_text_P(SEVERITY_HIGH,PSTR("George's first debug output"));
+//	hal.console->printf("georgewhr, printf %s\n",__func__);
 }
 #endif
 
