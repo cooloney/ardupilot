@@ -36,7 +36,11 @@ static bool set_mode(uint8_t mode)
                 success = stabilize_init(ignore_checks);
             #endif
             break;
-
+#if defined GW_DIY
+		case GWANG:
+			success = gwang_init(ignore_checks);
+			break;
+#endif
         case ALT_HOLD:
             success = althold_init(ignore_checks);
             break;
@@ -197,6 +201,11 @@ static void update_flight_mode()
             poshold_run();
             break;
 #endif
+
+#if defined GW_DIY
+		case GWANG:
+			break;
+#endif
     }
 }
 
@@ -310,6 +319,11 @@ print_flight_mode(AP_HAL::BetterStream *port, uint8_t mode)
     case AUTO:
         port->print_P(PSTR("AUTO"));
         break;
+#if defined GW_DIY
+	case GWANG:
+		port->print_P(PSTR("GWANG"));
+		break;
+#endif
     case GUIDED:
         port->print_P(PSTR("GUIDED"));
         break;
