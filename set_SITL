@@ -1,6 +1,6 @@
 //copter
 sim_vehicle.sh -v ArduCopter --console --map --aircraft test
-param load ../Tools/autotest/copter_params.parm
+//param load ../Tools/autotest/copter_params.parm
 wp load ../Tools/autotest/copter_mission.txt
 wp load ../Tools/autotest/gwang_copter_missions/copter_mission_bald.txt
 arm throttle
@@ -13,4 +13,66 @@ gwang
 www
 
 
+//work console log
+
+
+Init APM:Copter V3.3-dev (d53a5f98)
+
+Free RAM: 4096
+FW Ver: 120
+----------------------------------------
+
+
+load_all took 0us
+0 0 0 online system 1
+Mode STABILIZE
+APM: APM:Copter V3.3-dev (d53a5f98)
+APM: Frame: QUAD
+APM: Calibrating barometer
+APM: Initialising APM...
+APM: barometer calibration complete
+APM: GROUND START
+Init Gyro**
+INS
+----------------------------------------
+G_off: 0.00, 0.00, 0.00
+A_off: 0.00, 0.00, 0.00
+A_scale: 1.00, 1.00, 1.00
+
+
+
+Ready to FLY  ublox fence breach
+APM: PreArm: Waiting for Nav Checks
+Got MAVLink msg: MISSION_ACK {target_system : 255, target_component : 0, type : 0}
+Sent waypoint 0 : MISSION_ITEM {target_system : 1, target_component : 0, seq : 0, frame : 0, command : 22, current : 1, autocontinue : 1, param1 : 0.0, param2 : 0.0, param3 : 0.0, param4 : 0.0, x : 37.412801, y : -121.997893, z : 1.0}
+Sent waypoint 1 : MISSION_ITEM {target_system : 1, target_component : 0, seq : 1, frame : 3, command : 16, current : 0, autocontinue : 1, param1 : 0.0, param2 : 0.0, param3 : 0.0, param4 : 0.0, x : 37.413081, y : -121.997808, z : 6.0}
+Sent waypoint 2 : MISSION_ITEM {target_system : 1, target_component : 0, seq : 2, frame : 3, command : 16, current : 0, autocontinue : 1, param1 : 0.0, param2 : 0.0, param3 : 0.0, param4 : 0.0, x : 37.413324, y : -121.998179, z : 10.0}
+Sent waypoint 3 : MISSION_ITEM {target_system : 1, target_component : 0, seq : 3, frame : 3, command : 16, current : 0, autocontinue : 1, param1 : 0.0, param2 : 0.0, param3 : 0.0, param4 : 0.0, x : 37.41308, y : -121.998384, z : 15.0}
+Sent waypoint 4 : MISSION_ITEM {target_system : 1, target_component : 0, seq : 4, frame : 0, command : 20, current : 0, autocontinue : 1, param1 : 0.0, param2 : 0.0, param3 : 0.0, param4 : 0.0, x : 0.0, y : 0.0, z : 0.0}
+Sent all 5 waypoints
+Got MAVLink msg: MISSION_ACK {target_system : 255, target_component : 0, type : 0}
+APM: flight plan received
+GPS lock at 0 meters
+APM: ARMING MOTORS
+APM: GROUND START
+Init Gyro**
+INS
+----------------------------------------
+G_off: 0.00, 0.00, 0.00
+A_off: 0.00, 0.00, 0.00
+A_scale: 1.00, 1.00, 1.00
+
+
+auto_init:georgewhr, auto mode init success
+Got MAVLink msg: COMMAND_ACK {command : 11, result : 0}
+APM: Initialising APM...
+Got MAVLink msg: COMMAND_ACK {command : 400, result : 0}
+waypoint 1
+ARMED
+Mode AUTO
+APM: Reached Command #1
+waypoint 2
+APM: Reached Command #2
+waypoint 3
+height 10
 

@@ -1059,6 +1059,13 @@ static void one_hz_loop()
         pre_arm_checks(false);
     }
 
+/*    float target_yaw_rate,target_climb_rate,pilot_throttle_scaled;
+    target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
+	target_climb_rate = get_pilot_desired_climb_rate(g.rc_3.control_in);
+	pilot_throttle_scaled = get_pilot_desired_throttle(g.rc_3.control_in);
+    cliSerial->printf_P(PSTR("georgewhr yaw_rate is %f,clibm_rate is %f, throttle_scaled is %f\n"),target_yaw_rate,target_climb_rate,pilot_throttle_scaled);*/
+
+
     // auto disarm checks
     auto_disarm_check();
 
@@ -1101,6 +1108,9 @@ static void gwang_first_print(void)
 {
 	//gcs_send_text_P(SEVERITY_HIGH,PSTR("George's first debug output"));
     //hal.console->printf("georgewhr, printf %s\n",__func__);
+	/*float target_yaw_rate;
+	target_yaw_rate = get_pilot_desired_yaw_rate(g.rc_4.control_in);
+	cliSerial->printf_P(PSTR("georgewhr target_yaw_rate is %f:\n"),target_yaw_rate);*/
 }
 #endif
 
