@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # home location lat, lon, alt, heading
-LOCATION="CMAC"
-TRACKER_LOCATION="CMAC_PILOTSBOX"
+LOCATION="BALD"
+TRACKER_LOCATION="BALD_PILOTSBOX"
 VEHICLE=""
 BUILD_TARGET="sitl"
 FRAME=""
@@ -416,6 +416,7 @@ if [ $USE_MAVLINK_GIMBAL == 1 ]; then
     options="$options --load-module=gimbal"
 fi
 mavproxy.py $options --cmd="$extra_cmd" $*
+#/home/gwang/uav/mavelous/mavproxy.py $options --cmd="$extra_cmd" $*
 if [ $START_HIL == 0 ]; then
 kill_tasks
 fi
